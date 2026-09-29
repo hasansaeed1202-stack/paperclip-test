@@ -1,0 +1,8 @@
+﻿{
+ "name":"german-homeopathic-clinic",
+ "version":"2.0.0",
+ "private":true,
+ "description":"Static website for German Homeopathic Clinic, Attock",
+ "scripts":{"test":"node tests/website.cjs","format":"prettier --write index.html styles.css script.js clinic-config.js README.md tests/website.cjs"},
+ "devDependencies":{"@axe-core/playwright":"4.13.0","playwright":"1.63.0","prettier":"3.6.2"}
+}
