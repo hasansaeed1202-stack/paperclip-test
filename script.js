@@ -1,4 +1,4 @@
-﻿"use strict";
+"use strict";
 (() => {
   const c = window.CLINIC,
     q = (s) => document.querySelector(s),
@@ -231,38 +231,6 @@
       selection.addRange(range);
     }
   });
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "MedicalClinic",
-    name: c.name,
-    foundingDate: "2014",
-    telephone: c.phones.map((p) => p.international),
-    email: c.email,
-    hasMap: c.map,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Peoples Colony, Quaid-e-Azam Chowk, Main Market",
-      addressLocality: "Attock City",
-      addressCountry: "PK",
-    },
-    openingHoursSpecification: {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-      ],
-      opens: c.consultation.opens,
-      closes: c.consultation.closes,
-    },
-  };
-  const script = document.createElement("script");
-  script.type = "application/ld+json";
-  script.textContent = JSON.stringify(schema);
-  document.head.append(script);
   if (c.siteUrl) {
     const url = new URL(c.siteUrl);
     if (url.protocol === "https:") {
