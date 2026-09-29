@@ -1,4 +1,4 @@
-﻿/* Run with NODE_PATH pointing to a directory containing playwright and @axe-core/playwright. */
+/* Run with NODE_PATH pointing to a directory containing playwright and @axe-core/playwright. */
 const assert = require("node:assert/strict");
 const fs = require("node:fs"),
   path = require("node:path");
@@ -83,7 +83,7 @@ const { default: AxeBuilder } = require("@axe-core/playwright");
       "https://maps.app.goo.gl/FdYHM3yxc6KPLa2T7",
     ];
     for (const href of expected)
-      assert.ok(await page.locator(`a[href="${href}"]`).count(), href);
+      assert.ok(await page.locator(`a[href^="${href}"]`).count(), href);
     const content = await page.locator("body").innerText();
     for (const text of [
       "Doctor Ihsan Ullah",
@@ -186,6 +186,29 @@ const { default: AxeBuilder } = require("@axe-core/playwright");
       await page.locator("#request-status").innerText(),
       /Appointment requested — awaiting clinic confirmation/,
     );
+    await page.locator("#copy-request").click();
+    await page.waitForFunction(
+      () => document.querySelector("#copy-status").textContent.length > 0,
+    );
+    assert.match(
+      await page.locator("#copy-status").innerText(),
+      /Copied|Copy unavailable/,
+    );
+    for (const name of [
+      "fullName",
+      "age",
+      "country",
+      "contact",
+      "date",
+      "time",
+      "method",
+      "reason",
+    ]) {
+      assert.equal(
+        await page.locator('[name="' + name + '"]').getAttribute("required"),
+        "",
+      );
+    }
     await page.locator(".gallery-item").first().click();
     assert.equal(await page.locator("dialog").evaluate((d) => d.open), true);
     await page.keyboard.press("Escape");

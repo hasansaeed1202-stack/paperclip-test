@@ -1,6 +1,6 @@
 ﻿# German Homeopathic Clinic, Attock
 
-Upgrade of the existing MRN-4 static website in `hasansaeed1202-stack/paperclip-test`. The site presents Doctor Ihsan Ullah, clinic credentials, physical visits, online consultation requests, Friday checkups, patient information and genuine clinic photography. No runtime framework, database, analytics or external font service is used.
+Premium redesign of the existing static website in `hasansaeed1202-stack/paperclip-test`. The site presents Doctor Ihsan Ullah, clinic credentials, physical visits, online consultation requests, Friday checkups, patient information and genuine clinic photography. No runtime framework, database, analytics or external font service is used.
 
 ## Preview
 
@@ -59,14 +59,19 @@ The current static host cannot securely provide these features. It also does not
 
 ## Genuine photos and logo
 
-All assets came from the task's attachments:
+The current main photographs come from the MRN-6 attachments:
+
+- `doctor-portrait.jpg`: the newly supplied portrait, cropped only to remove the background certificate. The face is unaltered; no AI reconstruction.
+- `clinic-interior.jpg`: the newly supplied empty-chair interior, re-encoded as JPEG for performance with no composition changes.
+
+Existing clinic-authorized assets are retained:
 
 - `doctor.webp`: IMG_3106.HEIC, converted and cropped around the doctor.
 - `doctor-at-clinic.webp`: IMG_3105.HEIC, converted and cropped for the gallery.
 - `consultation-room.webp`: IMG_3113.JPG.jpeg, orientation corrected and optimized.
 - `clinic-logo.png`: the supplied standalone green/red symbol (`file_0000000024a082089cef86edfd2e8a86.png`), tightly cropped to the symbol and resized. No attachment named IMG_3100 was present; the separately supplied symbol was used, not an invented logo or photographed poster.
 
-The portrait crops remove background certificates. The certificate and patient-rights originals stay outside the repository. The patient information section is a concise English summary of the supplied Urdu notice. Only requested public credential information is reproduced. Photos are not stretched; EXIF/GPS metadata is stripped. Public assets total approximately 375 KiB.
+The portrait crops remove background certificates. The certificate and patient-rights originals stay outside the repository. The patient information section is a concise English summary of the supplied Urdu notice. Only requested public credential information is reproduced. Photos are not stretched; EXIF/GPS metadata is stripped. The two new images total approximately 266 KiB.
 
 To replace photos, use clinic-authorized images, remove private background information and metadata, export WebP at a sensible size, and replace the files in `assets/`. Update dimensions, descriptive alt text and gallery captions in HTML. Do not commit originals containing private documents. Do not add stock patients, fabricated testimonials, ratings, awards or cure claims.
 
@@ -78,6 +83,10 @@ Once the public URL is known, set `siteUrl` to the full HTTPS base URL including
 
 ## Tests
 
-Run `npm ci`, then `npm test`. Tests use installed Microsoft Edge by default. To use installed Chrome set `BROWSER_CHANNEL=chrome`. Development dependencies are not needed by the deployed site. The tests exercise responsive widths, axe WCAG A/AA checks, internal anchors, asset loading, contact URLs, booking validation and all call methods, message encoding, safe rendering, menu, FAQ and gallery keyboard interaction, and reduced motion. They suppress the WhatsApp handoff navigation so no test data reaches the clinic.
+Run `npm ci`, then `npm test` and `node tests/click-audit.cjs`. Tests use installed Microsoft Edge by default. To use installed Chrome set `BROWSER_CHANNEL=chrome`. Development dependencies are not needed by the deployed site. The tests exercise responsive widths, axe WCAG A/AA checks, internal anchors, asset loading, contact URLs, booking validation and all call methods, message encoding, safe rendering, menu, FAQ and gallery keyboard interaction, and reduced motion. They suppress the WhatsApp handoff navigation so no test data reaches the clinic.
 
 See `QA.md` for the verified scope and external-service limitations.
+
+## MRN-6 design and interactions
+
+Original green, cream and muted-red composition with a large portrait hero, floating translucent caption, rounded sticky navigation, large clinic interior, editorial credentials, rounded appointment form and responsive mobile action bar. Six native details/summary concern cards open with mouse, touch, Enter or Space; each links to booking. Call-method shortcuts preselect the matching method. General WhatsApp links include a useful message. No decorative payment or medicine brand buttons are used. The Dribbble reference informed spacing, typography and rounded presentation only; no text, branding, images or exact layout was copied.

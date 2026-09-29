@@ -17,7 +17,8 @@
     if (el.closest(".contact-grid")) el.textContent = p.display;
   });
   all("[data-whatsapp]").forEach(
-    (el) => (el.href = `https://wa.me/${c.whatsapp}`),
+    (el) =>
+      (el.href = `https://wa.me/${c.whatsapp}?text=${encodeURIComponent("Hello German Homeopathic Clinic, I would like some information.")}`),
   );
   all("[data-map]").forEach((el) => (el.href = c.map));
   all("[data-email]").forEach((el) => {
@@ -49,6 +50,31 @@
     if (!e.target.closest("header")) closeMenu();
   });
   matchMedia("(min-width:901px)").addEventListener("change", closeMenu);
+  all("[data-method]").forEach((link) =>
+    link.addEventListener("click", () => {
+      const field = q('[name="method"]');
+      field.value = link.dataset.method;
+      field.dispatchEvent(new Event("input", { bubbles: true }));
+    }),
+  );
+  const observer =
+    "IntersectionObserver" in window
+      ? new IntersectionObserver(
+          (entries) =>
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("revealed");
+                observer.unobserve(entry.target);
+              }
+            }),
+          { threshold: 0.06 },
+        )
+      : null;
+  if (observer && !matchMedia("(prefers-reduced-motion: reduce)").matches)
+    all(".section-heading, .profile-grid, .gallery").forEach((el) => {
+      el.classList.add("reveal");
+      observer.observe(el);
+    });
   const dialog = q("#lightbox");
   let galleryTrigger;
   all("[data-image]").forEach((button) =>
@@ -246,7 +272,7 @@
       document.head.append(canonical);
       for (const [property, content] of Object.entries({
         "og:url": url.href,
-        "og:image": new URL("assets/doctor.webp", url).href,
+        "og:image": new URL("assets/doctor-portrait.jpg", url).href,
         "og:image:alt": "Doctor Ihsan Ullah at German Homeopathic Clinic",
       })) {
         const meta = document.createElement("meta");
