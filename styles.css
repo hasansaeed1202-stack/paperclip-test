@@ -9,6 +9,29 @@
   --line: #d5e2d9;
   --radius: 32px;
 }
+.wrap.radio-show {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  margin-bottom: 32px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--pale);
+}
+.radio-icon { flex-shrink: 0; color: var(--green); }
+.radio-copy { flex: 1; min-width: 0; }
+.radio-show h2 { font-size: clamp(1.05rem, 2vw, 1.35rem); line-height: 1.4; margin: 0 0 4px; }
+.radio-show p { margin: 0; }
+.radio-show .radio-status { font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.radio-next { font-size: .85rem; color: var(--muted); }
+.radio-show.is-live { border-color: var(--red); }
+.radio-show.is-live .radio-status { color: var(--red); }
+@media (max-width: 600px) {
+  .wrap.radio-show { flex-wrap: wrap; gap: 12px; padding: 20px; }
+  .radio-show .radio-copy { flex-basis: calc(100% - 52px); }
+  .radio-show .button { margin-left: 52px; }
+}
 * {
   box-sizing: border-box;
 }
