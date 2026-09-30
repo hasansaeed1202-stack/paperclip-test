@@ -1463,14 +1463,14 @@ body:has(dialog[open]) {
   }
   .mobile-actions {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     position: fixed;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    left: max(10px, env(safe-area-inset-left, 0px));
+    right: max(10px, env(safe-area-inset-right, 0px));
     z-index: 25;
     border: 1px solid var(--line);
-    border-radius: 999px;
+    border-radius: 24px;
     background: #fffffffa;
     padding: 6px;
     box-shadow: 0 4px 30px #173c2a25;
@@ -1479,8 +1479,10 @@ body:has(dialog[open]) {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 44px;
-    border-radius: 999px;
+    min-height: 58px;
+    flex-direction: column;
+    gap: 3px;
+    border-radius: 18px;
     text-decoration: none;
     font-size: 11px;
     font-weight: 700;
@@ -1490,7 +1492,7 @@ body:has(dialog[open]) {
     color: white;
   }
   body {
-    padding-bottom: 85px;
+    padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
   }
   .footer-inner {
     padding: 30px 0;
@@ -1553,5 +1555,72 @@ body:has(dialog[open]) {
   .reveal {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Visit details and quick actions use the existing clinic palette. */
+.contact-grid .directions-button {
+  display: inline-flex;
+  padding: 14px 22px;
+  margin-top: 16px;
+  color: var(--deep);
+}
+.visit-hours {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #648b75;
+}
+.visit-hours h3 {
+  font-size: 14px;
+  color: #d1e4c7;
+  margin: 0 0 8px;
+}
+.visit-hours p {
+  margin: 0;
+  font-size: 15px;
+}
+.visit-hours .friday-note {
+  background: #ffffff12;
+  border: 1px solid #648b75;
+  border-radius: 18px;
+  padding: 16px 20px;
+}
+.mobile-actions svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.mobile-actions span {
+  text-align: center;
+  line-height: 1.25;
+}
+.mobile-actions small {
+  display: block;
+  font-size: 9px;
+  font-weight: 500;
+  margin-top: 2px;
+}
+.mobile-actions a:hover {
+  background: var(--deep);
+  color: white;
+}
+@media (max-width: 640px) {
+  html {
+    scroll-padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+  }
+  .visit-hours {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .visit-hours strong {
+    display: block;
   }
 }
