@@ -51,7 +51,10 @@ const fs = require("node:fs");
       const count = await links.count();
       for (let i = 0; i < count; i++) {
         const a = links.nth(i);
-        if ((await a.evaluate((e) => !!e.closest("nav"))) && width <= 900)
+        if (
+          (await a.evaluate((e) => !!e.closest("#navigation"))) &&
+          width <= 900
+        )
           await page.locator(".menu-toggle").click();
         if (!(await a.isVisible())) continue;
         const href = await a.getAttribute("href");
@@ -60,7 +63,9 @@ const fs = require("node:fs");
         if (href.startsWith("https://wa.me/")) {
           const u = new URL(href);
           assert.equal(u.pathname, "/923178191818");
-          assert.ok(u.searchParams.get("text"));
+          // The quick-action bar intentionally opens a plain clinic conversation.
+          if (!(await a.evaluate((e) => !!e.closest(".mobile-actions"))))
+            assert.ok(u.searchParams.get("text"));
         }
         if (href.startsWith("tel:"))
           assert.ok(["tel:+923178191818", "tel:+923009171002"].includes(href));

@@ -57,24 +57,6 @@
       field.dispatchEvent(new Event("input", { bubbles: true }));
     }),
   );
-  const observer =
-    "IntersectionObserver" in window
-      ? new IntersectionObserver(
-          (entries) =>
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("revealed");
-                observer.unobserve(entry.target);
-              }
-            }),
-          { threshold: 0.06 },
-        )
-      : null;
-  if (observer && !matchMedia("(prefers-reduced-motion: reduce)").matches)
-    all(".section-heading, .profile-grid, .gallery").forEach((el) => {
-      el.classList.add("reveal");
-      observer.observe(el);
-    });
   const dialog = q("#lightbox");
   let galleryTrigger;
   all("[data-image]").forEach((button) =>

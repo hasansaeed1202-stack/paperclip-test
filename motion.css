@@ -1,0 +1,132 @@
+:root {
+  --motion-press: 85ms;
+  --motion-ui: 220ms;
+  --motion-release: 380ms;
+  --motion-entrance: 560ms;
+  --motion-stagger: 65ms;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --motion-spring: cubic-bezier(0.2, 1.4, 0.4, 1);
+  --header-offset: 120px;
+}
+html {
+  scroll-padding-top: var(--header-offset);
+}
+#friday {
+  scroll-margin-top: 0;
+}
+/* The header's mobile nav top offset must not displace the fixed action bar. */
+.mobile-actions {
+  top: auto;
+}
+
+/* Independent scale/translate leave entrance transforms and layout untouched. */
+:is(
+  .button,
+  .secondary-button,
+  .menu-toggle,
+  .text-link,
+  nav a,
+  summary,
+  .gallery-item,
+  .method-list a
+) {
+  transition:
+    scale var(--motion-release) var(--motion-spring),
+    translate var(--motion-release) var(--motion-ease),
+    background-color var(--motion-ui),
+    color var(--motion-ui);
+}
+.text-link {
+  display: inline-block;
+}
+.button:hover {
+  transform: none;
+}
+:is(
+  .button,
+  .secondary-button,
+  .menu-toggle,
+  .text-link,
+  nav a,
+  summary,
+  .gallery-item,
+  .method-list a
+):active,
+.motion-pressed {
+  scale: 0.975;
+  translate: 0 0;
+  transition-duration: var(--motion-press);
+}
+.mobile-actions svg {
+  transition: scale var(--motion-release) var(--motion-spring);
+}
+.mobile-actions a:active svg,
+.mobile-actions .motion-pressed svg {
+  scale: 0.92;
+}
+:is(a, button, summary):focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 5px;
+}
+.contact :is(a, button):focus-visible {
+  outline-color: white;
+}
+.hero-photo {
+  transition: transform var(--motion-release) var(--motion-ease);
+  transform: perspective(1200px) rotateX(var(--depth-x, 0deg))
+    rotateY(var(--depth-y, 0deg));
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  :is(.button, .secondary-button, .method-list a, .gallery-item):hover {
+    translate: 0 -2px;
+  }
+  :is(.concern, .visit-card, .credential-panel, .radio-show) {
+    transition: translate var(--motion-release) var(--motion-ease);
+  }
+  :is(.concern, .visit-card, .credential-panel, .radio-show):hover {
+    translate: 0 -2px;
+  }
+  :is(.button, .secondary-button, .method-list a, .gallery-item):active {
+    translate: 0 0;
+  }
+}
+@media (hover: none), (pointer: coarse) {
+  .button:hover {
+    box-shadow: none;
+  }
+  .gallery-item:hover img {
+    transform: none;
+  }
+  .mobile-actions a:hover {
+    background: transparent;
+    color: inherit;
+  }
+  .mobile-actions a:nth-child(3):hover {
+    background: var(--green);
+    color: white;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  :is(
+    .button,
+    .secondary-button,
+    .menu-toggle,
+    .text-link,
+    nav a,
+    summary,
+    .gallery-item,
+    .method-list a,
+    .mobile-actions svg,
+    .motion-pressed
+  ) {
+    scale: none !important;
+    translate: none !important;
+  }
+  .hero-photo,
+  .gallery-item:hover img {
+    transform: none !important;
+  }
+}
