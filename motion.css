@@ -101,7 +101,7 @@ html {
     background: transparent;
     color: inherit;
   }
-  .mobile-actions a:nth-child(3):hover {
+  .mobile-actions .mobile-booking:hover {
     background: var(--green);
     color: white;
   }

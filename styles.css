@@ -1463,7 +1463,8 @@ body:has(dialog[open]) {
   }
   .mobile-actions {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 2px;
     position: fixed;
     bottom: calc(10px + env(safe-area-inset-bottom, 0px));
     left: max(10px, env(safe-area-inset-left, 0px));
@@ -1476,6 +1477,8 @@ body:has(dialog[open]) {
     box-shadow: 0 4px 30px #173c2a25;
   }
   .mobile-actions a {
+    padding: 4px 2px;
+    min-width: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1487,7 +1490,7 @@ body:has(dialog[open]) {
     font-size: 11px;
     font-weight: 700;
   }
-  .mobile-actions a:nth-child(3) {
+  .mobile-actions .mobile-booking {
     background: var(--green);
     color: white;
   }

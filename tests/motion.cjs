@@ -194,14 +194,18 @@ const url = pathToFileURL(path.join(root, "index.html")).href;
       .readFileSync(path.join(root, "index.html"), "utf8")
       .replace(/^    <link rel="stylesheet" href="motion.css" \/>\r?\n/m, "")
       .replace(/^    <script src="motion.js" defer><\/script>\r?\n/m, "");
-    assert.equal(current.replace(/\r/g, ""), base.replace(/\r/g, ""));
+    assert.equal(
+      current
+        .replace(/\r/g, "")
+        .replace(/      <a class="mobile-booking"[\s\S]*?<\/a\n      >\n/, ""),
+      base.replace(/\r/g, ""),
+    );
     for (const file of [
       "radio.js",
       "clinic-config.js",
       "CNAME",
       "robots.txt",
       "sitemap.xml",
-      "styles.css",
     ]) {
       assert.deepEqual(
         fs.readFileSync(path.join(root, file)),
